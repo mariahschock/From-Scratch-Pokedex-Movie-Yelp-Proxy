@@ -4,26 +4,40 @@ import './App.css';
 
 function App() {
   const [pokemon, setPokemon] = useState([]);
+  const [pokemonQuery, setPokemonQuery] = useState([]);
+
+  async function fetchAndStorePokemon() {
+    const data = await getPokemon(pokemonQuery);
+
+    setPokemon(data.results);
+  }
 
   useEffect(() => {
-    async function onload() {
-      const data = await getPokemon();
-
-      setPokemon(data.results);
-    }
-
-    onload();
+    fetchAndStorePokemon();
   }, []);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    await fetchAndStorePokemon();
+
+    setPokemonQuery('');
+  }
+
+  console.log(pokemonQuery);
 
   return (
     <div className="App">
-      <header className="App-header">
-        {
-          pokemon.map((poke, i) => <div key={poke.pokemon + i}>
-            <p>{poke.pokemon}</p>
-          </div>)
-        }
-      </header>
+      <form onSubmit={handleSubmit}>
+        <input onChange={e => setPokemonQuery(e.target.value)} />
+        <button>Search</button>
+      </form>
+      {
+        pokemon.map((poke, i) => <div className="pokemon" key={poke.pokemon + i}>
+          <p>{poke.pokemon}</p>
+          <img src={poke.url_image} />
+        </div>)
+      }
     </div>
   );
 }
