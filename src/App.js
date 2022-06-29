@@ -1,48 +1,13 @@
-import { useEffect, useState } from 'react';
-import { getPokemon } from './services/fetch-utils';
+import React from 'react';
 import BusinessList from './BusinessList';
+import PokemonList from './PokemonList';
 import './App.css';
 
 function App() {
-  const [pokemon, setPokemon] = useState([]);
-  const [pokemonQuery, setPokemonQuery] = useState([]);
-
-  async function fetchAndStorePokemon() {
-    const data = await getPokemon(pokemonQuery);
-
-    setPokemon(data.results);
-  }
-
-  useEffect(() => {
-    fetchAndStorePokemon();
-  }, []);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    await fetchAndStorePokemon();
-
-    setPokemonQuery('');
-  }
-
-  console.log(pokemonQuery);
-
-
 
   return (
     <div className="App">
-      <div className="pokemon-list">
-        <form onSubmit={handleSubmit}>
-          <input onChange={e => setPokemonQuery(e.target.value)} />
-          <button>Search</button>
-        </form>
-        {
-          pokemon.map((poke, i) => <div className="pokemon" key={poke.pokemon + i}>
-            <p>{poke.pokemon}</p>
-            <img src={poke.url_image} />
-          </div>)
-        }
-      </div>
+      <PokemonList />
       <BusinessList />
     </div>
   );

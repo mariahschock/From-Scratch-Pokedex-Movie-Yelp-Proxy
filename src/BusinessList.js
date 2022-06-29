@@ -6,11 +6,6 @@ export default function BusinessList() {
   const [businesses, setBusinesses] = useState([]);
   const [yelpQuery, setYelpQuery] = useState([]);
 
-
-//   useEffect(() => {
-//     fetchAndStoreBusinesses();
-//   }, []);
-
   async function fetchAndStoreBusinesses() {
     const data = await getYelp(yelpQuery);
 
@@ -24,8 +19,6 @@ export default function BusinessList() {
 
     setYelpQuery('');
   }
-
-  console.log(yelpQuery);
 
   return (
     <div>
