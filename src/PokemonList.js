@@ -14,7 +14,7 @@ export default function PokemonList() {
 
   useEffect(() => {
     fetchAndStorePokemon();
-  }, []);
+  }, []); //eslint-disable-line
 
   async function handleSubmit(e) {
     e.preventDefault();
