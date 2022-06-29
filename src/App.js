@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getPokemon } from './services/fetch-utils';
+import BusinessList from './BusinessList';
 import './App.css';
 
 function App() {
@@ -26,18 +27,23 @@ function App() {
 
   console.log(pokemonQuery);
 
+
+
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
-        <input onChange={e => setPokemonQuery(e.target.value)} />
-        <button>Search</button>
-      </form>
-      {
-        pokemon.map((poke, i) => <div className="pokemon" key={poke.pokemon + i}>
-          <p>{poke.pokemon}</p>
-          <img src={poke.url_image} />
-        </div>)
-      }
+      <div className="pokemon-list">
+        <form onSubmit={handleSubmit}>
+          <input onChange={e => setPokemonQuery(e.target.value)} />
+          <button>Search</button>
+        </form>
+        {
+          pokemon.map((poke, i) => <div className="pokemon" key={poke.pokemon + i}>
+            <p>{poke.pokemon}</p>
+            <img src={poke.url_image} />
+          </div>)
+        }
+      </div>
+      <BusinessList />
     </div>
   );
 }
